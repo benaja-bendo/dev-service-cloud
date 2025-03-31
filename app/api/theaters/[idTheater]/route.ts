@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
-import { Db, MongoClient } from 'mongodb';
-import clientPromise from '@/lib/mongodb';
+import { NextResponse } from "next/server";
+import { ObjectId } from "mongodb";
+import { Db, MongoClient } from "mongodb";
+import clientPromise from "@/lib/mongodb";
 
 /**
  * @swagger
@@ -23,17 +23,26 @@ import clientPromise from '@/lib/mongodb';
  *       500:
  *         description: Erreur interne du serveur
  */
-export async function GET(request: Request, { params }: { params: { idTheater: string } }): Promise<NextResponse> {
-  const { idTheater } = params;
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ idTheater: string }> }
+): Promise<NextResponse> {
+  const { idTheater } = await params;
   try {
     const client: MongoClient = await clientPromise;
-    const db: Db = client.db('sample_mflix');
-    const theater = await db.collection('theaters').findOne({ _id: new ObjectId(idTheater) });
+    const db: Db = client.db("sample_mflix");
+    const theater = await db
+      .collection("theaters")
+      .findOne({ _id: new ObjectId(idTheater) });
     if (!theater) {
       return NextResponse.json({ status: 404, message: "Théâtre non trouvé" });
     }
     return NextResponse.json({ status: 200, data: theater });
   } catch (error: any) {
-    return NextResponse.json({ status: 500, message: "Internal Server Error", error: error.message });
+    return NextResponse.json({
+      status: 500,
+      message: "Internal Server Error",
+      error: error.message,
+    });
   }
 }

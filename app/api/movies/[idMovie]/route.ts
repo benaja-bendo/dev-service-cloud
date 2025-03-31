@@ -25,9 +25,9 @@ import clientPromise from "@/lib/mongodb";
  */
 export async function GET(
   request: Request,
-  { params }: { params: { idMovie: string } }
+  { params }: { params: Promise<{ idMovie: string }> }
 ): Promise<NextResponse> {
-  const { idMovie } = params;
+  const { idMovie } = await params;
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db("sample_mflix");
@@ -67,9 +67,9 @@ export async function GET(
  */
 export async function POST(
   request: Request,
-  { params }: { params: { idMovie: string } }
+  { params }: { params: Promise<{ idMovie: string }> }
 ): Promise<NextResponse> {
-  const { idMovie } = params;
+  const { idMovie } = await params;
   try {
     const data = await request.json();
     const client: MongoClient = await clientPromise;
@@ -108,9 +108,9 @@ export async function POST(
  */
 export async function PUT(
   request: Request,
-  { params }: { params: { idMovie: string } }
+  { params }: { params: Promise<{ idMovie: string }> }
 ): Promise<NextResponse> {
-  const { idMovie } = params;
+  const { idMovie } = await params;
   try {
     const data = await request.json();
     const client: MongoClient = await clientPromise;
@@ -153,9 +153,9 @@ export async function PUT(
  */
 export async function DELETE(
   request: Request,
-  { params }: { params: { idMovie: string } }
+  { params }: { params: Promise<{ idMovie: string }> }
 ): Promise<NextResponse> {
-  const { idMovie } = params;
+  const { idMovie } = await params;
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db("sample_mflix");
