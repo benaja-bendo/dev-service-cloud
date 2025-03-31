@@ -70,5 +70,19 @@ Dans le fichier `lib/mongodb.ts` (ou un équivalent), la connexion à MongoDB es
 
 ## Sur quoi est-il déployé ?
 
-- **Vercel** :  
-  La plateforme officielle de déploiement de Next.js. Il suffit de connecter votre dépôt Git et de configurer vos variables d'environnement dans l'interface de Vercel.
+L'application est déployée sur **Vercel**, la plateforme officielle de déploiement pour Next.js.  
+Elle est accessible en production à l'adresse : [https://dev-service-cloud.vercel.app/](https://dev-service-cloud.vercel.app/)
+
+### Stack et Architecture Cloud
+
+- **Stack Technique :**
+  - **Front-end / API :** Next.js, qui gère à la fois le rendu côté serveur et la création d’API via le dossier `app/api`.
+  - **Base de données :** MongoDB, utilisée pour stocker et récupérer les données (films, commentaires, utilisateurs).
+  - **Authentification :** JWT pour la gestion sécurisée des sessions et `bcrypt` pour le hachage des mots de passe.
+  - **Connexion à MongoDB :** Utilisation d'un pool de connexions via le package `mongodb`.
+
+- **Architecture Cloud :**
+  - **Déploiement continu :** Vercel offre une intégration Git, permettant des déploiements automatiques à chaque push sur la branche principale.
+  - **CDN et Optimisation :** Vercel optimise les performances avec un CDN global, réduisant la latence et améliorant l’expérience utilisateur.
+  - **Sécurité et Configuration :** Les variables d'environnement sont gérées de manière sécurisée via l’interface Vercel.
+  - **Scalabilité :** Grâce à l'architecture serverless de Vercel, l'application peut évoluer en fonction du trafic sans gestion manuelle de serveurs.
